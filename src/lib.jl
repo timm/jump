@@ -1,5 +1,7 @@
 # vim: set et ts=2 sw=2:
 
+# A file of miscellaneous utilities.
+
 # ## Meta
 same(s) = s     
 
