@@ -19,19 +19,23 @@ doc1() { gawk '
     /vim:/             { next     }
     NR==1              { print "\n# " FILENAME "\n" }
     END                { if(!In) print "````\n"        }
-    gsub(/^[ \t]*$/,"") { next } 
      { if (gsub(/^# /,"")) {
-         if (!In) {if(!First) print "```\n"; First=0; In=1}}
+         if (!In) {if(!First) print "```\n\n"$0; First=0; In=1;next}}
        else
-         if (In)  {print "\n```julia"; In=0}
+         if (In)  {print "\n```julia\n" $0; In=0;next}
     }
     {  print }' $1 
+}
+patch() { gawk '
+/^```$/ && !last { last="```"; next    }
+                 { print last; last=$0 }
+END              { print last          }'
 }
 
 if [ "$1" == "-d" ]; then
   cp $Ish/README.md $Ish/docs/index.md
   (cd $Ish/src
   for f in *.jl; do 
-    doc1 $f > $Ish/docs/${f%.*}.md
+    doc1 $f | patch > $Ish/docs/${f%.*}.md
   done)
 fi

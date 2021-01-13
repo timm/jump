@@ -1,7 +1,10 @@
+
 r0() = Random.seed!(it.seed)
+
 function ok()
   @testset "ALL" begin 
     _lib(); _some(); _sym() end end
+
 function _lib()
   r0()
   @testset "lib" begin
@@ -12,6 +15,7 @@ function _lib()
     @test 5       == length(all[1])
     @test 15      == length(all)
     @test Float64 == typeof(all[2][2]) end end 
+
 function _sym()
   @testset "some" begin
     s=  col(txt="a") 
@@ -19,6 +23,7 @@ function _sym()
     for i in "aaaabbc" inc!(s,i) end
     @test s.mode == 'a'
     @test s.most == 4 end end 
+
 function _some()
   r0()
   @testset "some" begin

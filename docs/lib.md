@@ -1,4 +1,5 @@
-## Meta
+
+
 
 ```julia
 same(s) = s
@@ -13,10 +14,13 @@ few(a,n=it.divs.few)=length(a)<n ? a : [any(a) for _ in 1:n]
 ```
 
 ## Strings
+asdas
 
 ```julia
 thing(x) = try parse(Float64,x) catch _ x end
+
 sayln(i) = begin ay(i); println("") end
+
 function say(i)
   s,pre="$(typeof(i)){",""
   for f in sort!([x for x in fieldnames(typeof(i)) 
