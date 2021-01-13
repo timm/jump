@@ -10,7 +10,6 @@
 
 goalp(s,c=it.char) = c.less in s || c.more in s || c.klass in s
 
-
 </pre></details>
 
 

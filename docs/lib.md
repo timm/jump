@@ -8,7 +8,6 @@ A file of miscellaneous utilities.
 
 <details><summary>...</summary><pre>
 same(s) = s        
-
 </pre></details>
 
 ## Maths
@@ -19,7 +18,6 @@ same(s) = s
 int(x)  = floor(Int,x)
 any(a)  = a[ int(length(a) * rand()) + 1]
 few(a,n=it.divs.few)=length(a)<n ? a : [any(a) for _ in 1:n]
-
 </pre></details>
 
 ## Strings
@@ -41,7 +39,6 @@ function say(i)
   end
   print(s * "}")
 end
-
 </pre></details>
 
 ## Files
