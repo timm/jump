@@ -1,7 +1,7 @@
 # vim: set et ts=2 sw=2:
 
 # ## Meta
-same(s) = s
+same(s) = s  
 
 # ## Maths
 int(x)  = floor(Int,x)

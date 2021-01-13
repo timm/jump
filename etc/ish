@@ -16,8 +16,8 @@ PROMPT_COMMAND='echo -ne  "🎯 $(git branch 2>/dev/null | grep '^*' | colrm 1 2
 
 doc1() { gawk '
     BEGIN              { First=1 }
-    /vim:/             { next     }
     NR==1              { print "\n# " FILENAME "\n" }
+    /vim:/             { next    }
     END                { if(!In) print "````\n"        }
      { if (gsub(/^# /,"")) {
          if (!In) {if(!First) print "```\n\n"$0; First=0; In=1;next}}

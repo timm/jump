@@ -1,8 +1,11 @@
 
 
+# lib.jl
+
+
 
 ```julia
-same(s) = s
+same(s) = s  
 ```
 
 ## Maths
