@@ -6,36 +6,23 @@
 A file of miscellaneous utilities.
 ## Meta
 
-<details><summary>...</summary>
-
-```julia
-same(s) = s        
-```
+{% endhighlight %}
 
 </details>
 
 ## Maths
 `int`: Round numbers `  
 `any,few`: Pull one or `n` things from a list (at random) 
-
-<details><summary>...</summary>
-
-```julia
-int(x)  = floor(Int,x)
 any(a)  = a[ int(length(a) * rand()) + 1]
 few(a,n=it.divs.few)=length(a)<n ? a : [any(a) for _ in 1:n]
-```
+
+{% endhighlight %}
 
 </details>
 
 ## Strings
 `thing`: coerce things to floats or strings   
 `say,sayln`: print a struct, maybe with a trailing new line.
-
-<details><summary>...</summary>
-
-```julia
-thing(x) = try parse(Float64,x) catch _ x end
 
 sayln(i) = begin ay(i); println("") end
 
@@ -49,17 +36,13 @@ function say(i)
   end
   print(s * "}")
 end
-```
+
+{% endhighlight %}
 
 </details>
 
 ## Files
 `csv`: interate over a fiile
-
-<details><summary>...</summary>
-
-```julia
-@resumable function csv(file;zap=r"(\s+|#.*)")
   b4=""
   for line in eachline(file)
     line = replace(line,zap =>"")
@@ -69,7 +52,7 @@ end
       else
         @yield [thing(x) for x in split(b4*line,",")]
                 b4 = "" end end end end  
-````
+{% endhighlight %}
 
 </details>
 
