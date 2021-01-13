@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+
+Ish=$(cd $( dirname "${BASH_SOURCE[0]}" ) && pwd )/..
+chmod +x $Ish/etc/ish
+mkdir -p $Ish/docs
+
+alias ls="ls -G"
+alias gp="git add *; git commit -am saving; git push; git status"
+alias ish="$Ish/etc/ish "
+alias vi='vim -u /Users/timm/.vimrc'
+
+here() { cd $1; basename `pwd`; }
+
+PROMPT_COMMAND='echo -ne  "🎯 $(git branch 2>/dev/null | grep '^*' | colrm 1 2):";PS1="$(here ..)/$(here .):\!\e[m ▶ "'
+
+doc1() { gawk '
+    BEGIN           { First=1 }
+    /vim:/          { next     }
+    NR==1           { print "\n# " FILENAME "\n" }
+    END             { if(!In) print "````\n"        }
+    
+     { if (gsub(/^# /,"")) {
+         if (!In) {if(!First) print "```\n"; First=0; In=1}}
+       else
+         if (In)  {print "\n```julia"; In=0}
+    }
+    {  print }' $1 
+}
+
+if [ "$1" == "-d" ]; then
+  (cd $Ish/src
+  for f in *.jl; do doc1 $f > $Ish/docs/${f%.*}.md; done)
+fi
