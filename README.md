@@ -3,7 +3,7 @@
 <br><img src="https://img.shields.io/badge/purpose-ai%20,%20se-blueviolet">
 <br><img src="https://img.shields.io/badge/license-mit-lightgrey"></p><hr>
 
-# Jut
+# Jump
 
 Non-parametric optimization.<br>
 Find interesting bits. Combine them. Repeat.<br>
