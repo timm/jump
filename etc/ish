@@ -20,7 +20,7 @@ doc1() { gawk '
           { if (gsub(/^# /,"")) {
             if (!In) {
                 if(First) {print $0} else {print "```\n\n" $0}
-                First=0; In=1;next
+                First=0; In=1;next}
             } else
                 if (In)  {print "\n```julia\n" $0; In=0;next}
           }
