@@ -15,16 +15,16 @@ here() { cd $1; basename `pwd`; }
 PROMPT_COMMAND='echo -ne  "⤴️  $(git branch 2>/dev/null | grep '^*' | colrm 1 2):";PS1="$(here ..)/$(here .):\!\e[m ▶ "'
 
 doc1() { gawk '
-    NR==1              { First=1; print "\n# " FILENAME"\n"; next }
-    END                { if(!In) print "```\n\n"        }
-     { if (gsub(/^# /,"")) {
-         if (!In) {
-             if(First) {print $0} else {print "```\n\n" $0}
-             First=0; In=1;next}}
-       else
-         if (In)  {print "\n```julia\n" $0; In=0;next}
-    }
-    {  print $0}' $1 
+    NR==1 { First=1; print "\n# " FILENAME"\n"; next }
+    END   { if(!In) print "```\n\n"        }
+          { if (gsub(/^# /,"")) {
+            if (!In) {
+                if(First) {print $0} else {print "```\n\n" $0}
+                First=0; In=1;next
+            } else
+                if (In)  {print "\n```julia\n" $0; In=0;next}
+          }
+          {  print $0}' $1 
 }
 patch() { gawk '
 /^```$/ && First { next ;First=0}
