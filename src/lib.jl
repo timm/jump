@@ -5,7 +5,7 @@
 same(s) = s        
 
 # ## Maths
-# `int`: Round numbers `  
+# `int`: Round numbers   
 # `any,few`: Pull one or `n` things from a list (at random) 
 int(x)  = floor(Int,x)
 any(a)  = a[ int(length(a) * rand()) + 1]
