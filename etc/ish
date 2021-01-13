@@ -29,6 +29,8 @@ doc1() { gawk '
     {  print }' $1 
 }
 patch() { gawk '
+BEGIN            {First=1}
+/^```/ && First  { next }
 /^```$/ && !last { last="```"; next    }
                  { print last; last=$0 }
 END              { print last          }'
