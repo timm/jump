@@ -1,4 +1,7 @@
 
+
+# 
+
 @with_kw mutable struct Some
   pos=0; txt=""; w=1; n=0; 
   _all=[]; max=it.some.max; stale=false end

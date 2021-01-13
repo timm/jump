@@ -1,6 +1,6 @@
 
 
-# nb.jl
+# 
 
 #!/usr/bin/env julia
 using Test
@@ -23,3 +23,6 @@ want("col")
 want("tests")
 
 go() = want("nb")
+```
+
+say(Some(w=2))

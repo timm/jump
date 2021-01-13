@@ -1,12 +1,18 @@
 
 
-# lib.jl
+# 
 
+```
+
+A file of miscellaneous utilities.
+
+```julia
+```
 
 ## Meta
 
 ```julia
-same(s) = s     
+same(s) = s        
 ```
 
 ## Maths
