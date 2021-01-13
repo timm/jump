@@ -16,31 +16,19 @@ PROMPT_COMMAND='echo -ne  "⤴️  $(git branch 2>/dev/null | grep '^*' | colrm 
 
 doc1() { gawk '
     NR==1              { First=1; print "\n# " FILENAME"\n"; next }
-    END                { if(!In) print "{% endhighlight %}\n\n</details>\n\n"        }
+    END                { if(!In) print "```\n\n"        }
      { if (gsub(/^# /,"")) {
          if (!In) {
-             if(First) {print $0} else {print "{% endhighlight %}\n\n</details>\n\n" $0}
+             if(First) {print $0} else {print "```\n\n" $0}
              First=0; In=1;next}}
        else
-         if (In)  {print "\n<details><summary>...</summary>\n\n{% highlight julia linenos %}\n" $0; In=0;next}
+         if (In)  {print "\n```julia\n" $0; In=0;next}
     }
-    {  print }' $1 
-}
-doc2() { gawk '
-    NR==1              { First=1; print "\n# " FILENAME"\n"; next }
-    END                { if(!In) print "</pre></details>\n\n"        }
-     { if (gsub(/^# /,"")) {
-         if (!In) {
-             if(First) {print $0} else {print "</pre></details>\n\n" $0}
-             First=0; In=1;next}}
-       else
-         if (In)  {print "\n<details><summary>...</summary><pre>\n" $0; In=0;next}
-    }
-    {  print }' $1 
+    {  print $0}' $1 
 }
 patch() { gawk '
-/^<\/pre>/ && First  { next ;First=0}
-/^<\/pre>/ && !last { last=$0; next}
+/^```$/ && First { next ;First=0}
+/^```$/ && !last { last=$0; next}
                  { print last; last=$0 }
 END              { print last          }'
 }
@@ -50,6 +38,6 @@ if [ "$1" == "-d" ]; then
   (cd $Ish/src
   for f in *.jl; do 
     g=$Ish/docs/${f%.*}.md
-    doc2 $f | patch > $Ish/docs/${f%.*}.md
+    doc1 $f | patch > $Ish/docs/${f%.*}.md
   done)
 fi
