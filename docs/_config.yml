@@ -3,3 +3,6 @@ logo: /assets/img/grid.png
 show_downloads: true
 markdown: kramdown
 title: one
+kramdown:
+  highligthter: rogue
+  hard_wrap: false
