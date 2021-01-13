@@ -19,7 +19,7 @@ same(s) = s
 `int`: Round numbers `  
 `any,few`: Pull one or `n` things from a list (at random) 
 
-<details><summary>...</summary>
+<details><summary>...</summary>  
 
 {% highlight julia linenos %}
 int(x)  = floor(Int,x)
