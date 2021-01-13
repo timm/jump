@@ -5,6 +5,14 @@
 
 pre { font-size: 12px; line-spacing: 110%;}
 
+details {
+  padding-top: 2px;
+}
+
+details > summary {
+  padding: 2px;
+}
+
 
 .highlight .hll { background-color: #ffffcc }
 .highlight  { background: #f0f3f3; }

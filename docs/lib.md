@@ -15,7 +15,7 @@ same(s) = s
 `any,few`: Pull one or `n` things from a list (at random) 
 
 <details><summary>...</summary>{% highlight julia %}
-blint(x)  = floor(Int,x)
+clint(x)  = floor(Int,x)
 any(a)  = a[ int(length(a) * rand()) + 1]
 few(a,n=it.divs.few)=length(a)<n ? a : [any(a) for _ in 1:n]
 {% endhighlight %}</details>
