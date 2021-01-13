@@ -28,6 +28,7 @@ doc1() { gawk '
 }
 
 if [ "$1" == "-d" ]; then
+  cp $Ish/README.md $Ish/docs/index.ms
   (cd $Ish/src
   for f in *.jl; do doc1 $f > $Ish/docs/${f%.*}.md; done)
 fi
