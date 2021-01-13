@@ -20,7 +20,7 @@ doc1() { gawk '
     /vim:/             { next    }
     END                { if(!In) print "````\n"        }
      { if (gsub(/^# /,"")) {
-         if (!In) {print First ? $0 : "```\n\n"$0; First=0; In=1;next}}
+         if (!In) {print !First ? $0 : "```\n\n"$0; First=0; In=1;next}}
        else
          if (In)  {print "\n```julia\n" $0; In=0;next}
     }
