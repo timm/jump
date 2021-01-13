@@ -24,10 +24,8 @@ function say(i)
                  if !("$x"[1] == '_')])
     g = getfield(i,f)
     s = s * pre * "$f=$g"
-    pre=", "
-  end
-  print(s * "}")
-end
+    pre=", " end
+  print(s * "}") end
 
 # ## Files
 # `csv`: interate over a fiile
