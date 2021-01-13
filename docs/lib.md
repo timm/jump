@@ -19,7 +19,7 @@ few(a,n=it.divs.few)=length(a)<n ? a : [any(a) for _ in 1:n]
 ```
 
 ## Strings
-`thing`: coerce things to floats or strings
+`thing`: coerce things to floats or strings   
 `say,sayln`: print a struct, maybe with a trailing new line.
 
 ```julia
