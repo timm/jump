@@ -30,9 +30,9 @@ thing(x) = try parse(Float64,x) catch _ x end
 sayln(i) = begin ay(i); println("") end
 
 function say(i)
+  fields(x) = fieldnames(typeof(x))
   s,pre="$(typeof(i)){",""
-  for f in sort!([x for x in fieldnames(typeof(i)) 
-                 if !("$x"[1] == '_')])
+  for f in sort!([x for x in fields(i) if !("$x"[1] == '_')])
     g = getfield(i,f)
     s = s * pre * "$f=$g"
     pre=", " end
