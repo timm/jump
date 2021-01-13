@@ -54,3 +54,6 @@ function all(i::Some)
   i._all end
 ````
 
+</details>
+
+

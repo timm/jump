@@ -16,13 +16,13 @@ PROMPT_COMMAND='echo -ne  "⤴️  $(git branch 2>/dev/null | grep '^*' | colrm 
 
 doc1() { gawk '
     NR==1              { First=1; print "\n# " FILENAME"\n"; next }
-    END                { if(!In) print "````\n"        }
+    END                { if(!In) print "````\n\n</details>\n\n"        }
      { if (gsub(/^# /,"")) {
          if (!In) {
-             if(First) {print $0} else {print "```\n\n" $0}
+             if(First) {print $0} else {print "```\n\n</details>\n\n" $0}
              First=0; In=1;next}}
        else
-         if (In)  {print "\n```julia\n" $0; In=0;next}
+         if (In)  {print "\n<details><summary>...</summary>\n\n```julia\n" $0; In=0;next}
     }
     {  print }' $1 
 }

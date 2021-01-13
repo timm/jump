@@ -42,3 +42,6 @@ function _some()
     @test .78 < norm!(s,75) < .79 end end 
 ````
 
+</details>
+
+
