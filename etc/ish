@@ -36,6 +36,9 @@ if [ "$1" == "-d" ]; then
   cp $Ish/README.md $Ish/docs/index.md
   (cd $Ish/src
   for f in *.jl; do 
-    doc1 $f | patch > $Ish/docs/${f%.*}.md
+    g=$Ish/docs/${f%.*}.md
+    if [ "$f" -nt "$g" ]; then
+      doc1 $f | patch > $Ish/docs/${f%.*}.md
+    fi
   done)
 fi
