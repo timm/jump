@@ -2,7 +2,6 @@
 
 # lib.jl
 
-```
 
 A file of miscellaneous utilities.
 
