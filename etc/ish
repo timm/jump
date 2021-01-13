@@ -22,7 +22,7 @@ doc1() { gawk '
              if(First) {print $0} else {print "{% endhighlight %}\n\n</details>\n\n" $0}
              First=0; In=1;next}}
        else
-         if (In)  {uuuuu "\n<details><summary>...</summary>\n\n{% highlight julia linenos %}\n" $0; In=0;next}
+         if (In)  {print "\n<details><summary>...</summary>\n\n{% highlight julia linenos %}\n" $0; In=0;next}
     }
     {  print }' $1 
 }
