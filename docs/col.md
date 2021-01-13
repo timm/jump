@@ -52,7 +52,7 @@ function all(i::Some)
   if i.stale i._all=sort(i._all) end
   i.stale=false
   i._all end
-{% endhighlight %}
+</pre>
 
 </details>
 

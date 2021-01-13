@@ -8,10 +8,11 @@ A file of miscellaneous utilities.
 
 <details><summary>...</summary>
 
-{% highlight julia linenos %}
+<pre>
+
 same(s) = s        
 
-{% endhighlight %}
+</pre>
 
 </details>
 
@@ -19,14 +20,15 @@ same(s) = s
 `int`: Round numbers `  
 `any,few`: Pull one or `n` things from a list (at random) 
 
-<details><summary>...</summary>  
+<details><summary>...</summary>
 
-{% highlight julia linenos %}
+<pre>
+
 int(x)  = floor(Int,x)
 any(a)  = a[ int(length(a) * rand()) + 1]
 few(a,n=it.divs.few)=length(a)<n ? a : [any(a) for _ in 1:n]
 
-{% endhighlight %}
+</pre>
 
 </details>
 
@@ -36,7 +38,8 @@ few(a,n=it.divs.few)=length(a)<n ? a : [any(a) for _ in 1:n]
 
 <details><summary>...</summary>
 
-{% highlight julia linenos %}
+<pre>
+
 thing(x) = try parse(Float64,x) catch _ x end
 
 sayln(i) = begin ay(i); println("") end
@@ -52,7 +55,7 @@ function say(i)
   print(s * "}")
 end
 
-{% endhighlight %}
+</pre>
 
 </details>
 
@@ -61,7 +64,8 @@ end
 
 <details><summary>...</summary>
 
-{% highlight julia linenos %}
+<pre>
+
 @resumable function csv(file;zap=r"(\s+|#.*)")
   b4=""
   for line in eachline(file)
@@ -72,7 +76,7 @@ end
       else
         @yield [thing(x) for x in split(b4*line,",")]
                 b4 = "" end end end end  
-{% endhighlight %}
+</pre>
 
 </details>
 

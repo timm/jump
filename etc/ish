@@ -26,6 +26,18 @@ doc1() { gawk '
     }
     {  print }' $1 
 }
+doc2() { gawk '
+    NR==1              { First=1; print "\n# " FILENAME"\n"; next }
+    END                { if(!In) print "</pre>\n\n</details>\n\n"        }
+     { if (gsub(/^# /,"")) {
+         if (!In) {
+             if(First) {print $0} else {print "</pre>\n\n</details>\n\n" $0}
+             First=0; In=1;next}}
+       else
+         if (In)  {print "\n<details><summary>...</summary>\n\n<pre>\n\n" $0; In=0;next}
+    }
+    {  print }' $1 
+}
 patch() { gawk '
 /^```/ && First  { next ;First=0}
 /^```$/ && !last { last="```"; next    }
@@ -38,6 +50,6 @@ if [ "$1" == "-d" ]; then
   (cd $Ish/src
   for f in *.jl; do 
     g=$Ish/docs/${f%.*}.md
-    doc1 $f | patch > $Ish/docs/${f%.*}.md
+    doc2 $f | patch > $Ish/docs/${f%.*}.md
   done)
 fi
