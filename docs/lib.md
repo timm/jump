@@ -11,8 +11,8 @@ same(s) = s
 ## Maths
 
 ```julia
-int(x)  = floor(Int,x)
-any(a)  = a[ int(length(a) * rand()) + 1]
+int(x) = floor(Int,x)
+any(a) = a[ int(length(a) * rand()) + 1]
 few(a,n=it.divs.few)=length(a)<n ? a : [any(a) for _ in 1:n]
 ```
 
