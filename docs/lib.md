@@ -1,9 +1,7 @@
-
 ## Meta
 
 ```julia
 same(s) = s
-
 ```
 
 ## Maths
@@ -12,16 +10,13 @@ same(s) = s
 int(x)  = floor(Int,x)
 any(a)  = a[ int(length(a) * rand()) + 1]
 few(a,n=it.divs.few)=length(a)<n ? a : [any(a) for _ in 1:n]
-
 ```
 
 ## Strings
 
 ```julia
 thing(x) = try parse(Float64,x) catch _ x end
-
 sayln(i) = begin ay(i); println("") end
-
 function say(i)
   s,pre="$(typeof(i)){",""
   for f in sort!([x for x in fieldnames(typeof(i)) 
@@ -32,7 +27,6 @@ function say(i)
   end
   print(s * "}")
 end
-
 ```
 
 ## Files

@@ -7,6 +7,7 @@ mkdir -p $Ish/docs
 alias ls="ls -G"
 alias gp="git add *; git commit -am saving; git push; git status"
 alias ish="$Ish/etc/ish "
+alias reload=" . $Ish/etc/ish"
 alias vi='vim -u /Users/timm/.vimrc'
 
 here() { cd $1; basename `pwd`; }
@@ -14,11 +15,11 @@ here() { cd $1; basename `pwd`; }
 PROMPT_COMMAND='echo -ne  "🎯 $(git branch 2>/dev/null | grep '^*' | colrm 1 2):";PS1="$(here ..)/$(here .):\!\e[m ▶ "'
 
 doc1() { gawk '
-    BEGIN           { First=1 }
-    /vim:/          { next     }
-    NR==1           { print "\n# " FILENAME "\n" }
-    END             { if(!In) print "````\n"        }
-    
+    BEGIN              { First=1 }
+    /vim:/             { next     }
+    NR==1              { print "\n# " FILENAME "\n" }
+    END                { if(!In) print "````\n"        }
+    gsub(/^[ \t]*$/,"") { next } 
      { if (gsub(/^# /,"")) {
          if (!In) {if(!First) print "```\n"; First=0; In=1}}
        else
