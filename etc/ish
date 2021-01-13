@@ -15,7 +15,7 @@ here() { cd $1; basename `pwd`; }
 PROMPT_COMMAND='echo -ne  "⤴️  $(git branch 2>/dev/null | grep '^*' | colrm 1 2):";PS1="$(here ..)/$(here .):\!\e[m ▶ "'
 
 doc1() { gawk '
-    NR==1              { FIRST=1; print "\n# " FILENAME "\n"; next }
+    NR==1              { FIRST=1; print "\n# "'$1'"\n"; next }
     END                { if(!In) print "````\n"        }
      { if (gsub(/^# /,"")) {
          if (!In) {
