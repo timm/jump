@@ -28,13 +28,13 @@ doc1() { gawk '
 }
 doc2() { gawk '
     NR==1              { First=1; print "\n# " FILENAME"\n"; next }
-    END                { if(!In) print "</pre>\n\n</details>\n\n"        }
+    END                { if(!In) print "</pre></details>\n\n"        }
      { if (gsub(/^# /,"")) {
          if (!In) {
-             if(First) {print $0} else {print "</pre>\n\n</details>\n\n" $0}
+             if(First) {print $0} else {print "</pre></details>\n\n" $0}
              First=0; In=1;next}}
        else
-         if (In)  {print "\n<details><summary>...</summary>\n\n<pre>\n" $0; In=0;next}
+         if (In)  {print "\n<details><summary>...</summary><pre>\n" $0; In=0;next}
     }
     {  print }' $1 
 }

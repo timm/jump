@@ -40,8 +40,6 @@ function _some()
     @test 32.37 < sd(s) < 32.38
     @test s.w == -1
     @test .78 < norm!(s,75) < .79 end end 
-</pre>
-
-</details>
+</pre></details>
 
 
