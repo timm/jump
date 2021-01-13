@@ -38,6 +38,7 @@ if [ "$1" == "-d" ]; then
   (cd $Ish/src
   for f in *.jl; do 
     g=$Ish/docs/${f%.*}.md
+    echo "# ${f}..."
     doc1 $f | patch > $Ish/docs/${f%.*}.md
   done)
 fi
