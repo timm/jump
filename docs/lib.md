@@ -4,10 +4,6 @@
 
 
 A file of miscellaneous utilities.
-
-```julia
-```
-
 ## Meta
 
 ```julia
