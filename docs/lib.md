@@ -9,9 +9,7 @@ A file of miscellaneous utilities.
 <details><summary>...</summary>
 
 <pre>
-
 same(s) = s        
-
 </pre>
 
 </details>
@@ -23,11 +21,9 @@ same(s) = s
 <details><summary>...</summary>
 
 <pre>
-
 int(x)  = floor(Int,x)
 any(a)  = a[ int(length(a) * rand()) + 1]
 few(a,n=it.divs.few)=length(a)<n ? a : [any(a) for _ in 1:n]
-
 </pre>
 
 </details>
@@ -39,7 +35,6 @@ few(a,n=it.divs.few)=length(a)<n ? a : [any(a) for _ in 1:n]
 <details><summary>...</summary>
 
 <pre>
-
 thing(x) = try parse(Float64,x) catch _ x end
 
 sayln(i) = begin ay(i); println("") end
@@ -54,7 +49,6 @@ function say(i)
   end
   print(s * "}")
 end
-
 </pre>
 
 </details>
@@ -65,7 +59,6 @@ end
 <details><summary>...</summary>
 
 <pre>
-
 @resumable function csv(file;zap=r"(\s+|#.*)")
   b4=""
   for line in eachline(file)
