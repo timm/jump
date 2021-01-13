@@ -14,11 +14,11 @@ same(s) = s
 `int`: Round numbers `  
 `any,few`: Pull one or `n` things from a list (at random) 
 
-<details><summary>...</summary><pre>
+<details><summary>...</summary><pre>{% highlight julia linenos %}
 int(x)  = floor(Int,x)
 any(a)  = a[ int(length(a) * rand()) + 1]
 few(a,n=it.divs.few)=length(a)<n ? a : [any(a) for _ in 1:n]
-</pre></details>
+{% endhighlight %}</pre></details>
 
 ## Strings
 `thing`: coerce things to floats or strings   
