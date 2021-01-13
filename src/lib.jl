@@ -3,7 +3,7 @@
 # A file of miscellaneous utilities.
 
 # ## Meta
-same(s) = s     
+same(s) = s        
 
 # ## Maths
 # `int`: Round numbers `  
