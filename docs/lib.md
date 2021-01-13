@@ -9,7 +9,7 @@ same(s) = s
 ```
 
 ## Maths
-`int`: Round numbers     
+`int`: Round numbers `  
 `any,few`: Pull one or `n` things from a list (at random) 
 
 ```julia
@@ -19,7 +19,7 @@ few(a,n=it.divs.few)=length(a)<n ? a : [any(a) for _ in 1:n]
 ```
 
 ## Strings
-`thing`: coerce things to floats or strings   
+`thing`: coerce things to floats or strings
 `say,sayln`: print a struct, maybe with a trailing new line.
 
 ```julia
@@ -48,8 +48,8 @@ end
   for line in eachline(file)
     line = replace(line,zap =>"")
     if length(line) != 0
-      if line[end] == ',' # if the line ends with "," we'll
-        b4 = b4 * line    # need to join it to next                    
+      if line[end] == ',' # if line ends with ",",
+        b4 = b4 * line    # join it to next
       else
         @yield [thing(x) for x in split(b4*line,",")]
                 b4 = "" end end end end  

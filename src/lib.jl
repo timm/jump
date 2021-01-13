@@ -35,8 +35,8 @@ end
   for line in eachline(file)
     line = replace(line,zap =>"")
     if length(line) != 0
-      if line[end] == ',' # if the line ends with "," we'll
-        b4 = b4 * line    # need to join it to next                    
+      if line[end] == ',' # if line ends with ",",
+        b4 = b4 * line    # join it to next
       else
         @yield [thing(x) for x in split(b4*line,",")]
                 b4 = "" end end end end  
