@@ -20,10 +20,9 @@ sayln(i) = begin ay(i); println("") end
 
 function say(i)
   fields(x) = fieldnames(typeof(x))
-  s,pre="$(typeof(i)){",""
+  s, pre="$(typeof(i)){", ""
   for f in sort!([x for x in fields(i) if !("$x"[1] == '_')])
-    g = getfield(i,f)
-    s = s * pre * "$f=$g"
+    s = s * pre * "$f=$getfield(i,f)"
     pre=", " end
   print(s * "}") end
 
