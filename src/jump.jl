@@ -29,19 +29,18 @@ no = nothing
 @with_kw mutable struct Skip pos=0;txt="";w=1;n=0 end
 
 function inc!(i,x) 
-  function inc1!(i::Skip, x)  i end
-  function inc1!(i::Sym,  x) 
+  inc1!(i::Skip, x) = i 
+  inc1!(i::Sym,  x) = begin
     new = i.seen[x] = 1+get(i.seen,x,0) 
     if new > i.n i.n, i.mode = now, x end end 
-  function inc1!(i::Some, x) 
+  inc1!(i::Some, x) = begin 
     m = length(i._all)
     if m < it.some.max    
       i.ok=false; push!(i._all, x); 
     elseif rand() < m/i.n 
-      i.ok=false; i._all[int(m*rand())+1]=x end end
-
-  x==it.char.skip ? x : begin i.n += 1; inc1!(i,x) end
-  x end  
+      i.ok=false; i._all[int(m*rand())+1]=x end 
+  end
+  x==it.char.skip ? x : begin i.n += 1; inc1!(i,x) end nd
 
 function all(i::Some) 
   i._all = i.ok ? i._all : sort(i._all) 
@@ -61,11 +60,11 @@ function norm(i::Some,x) a=all(i)
 @with_kw mutable struct Row   has=[]; n=0; klass=no; hi=0; most=no end
 
 function data(file; t=Table())
-  function col(;txt="", pos=0, c=it.char)
+  col(;txt="", pos=0, c=it.char) = begin
     x = c.less in txt||c.more in txt||c.num in txt ? Some : Sym
     x = c.skip in txt ? Skip : x
-    x(txt=txt, pos=pos, w= c.less in txt ? -1 : 1) end
-
+    x(txt=txt, pos=pos, w= c.less in txt ? -1 : 1) 
+  end
   cols(a)  = [col(txt=txt, pos=pos) for (pos,txt) in enumerate(a)]
   cells(a) = Row(has= [inc!(c, a[c.pos])     for c in t.cols])
   for a in csv(it.data.dir * "/" * file)
