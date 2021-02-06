@@ -12,12 +12,17 @@ same(s) = s
 
 ## Maths
 `int`: Round numbers   
-`any,few`: Pull one or `n` things from a list (at random) 
+`any`: Pull one thing from a list (at random) 
 
 ```julia
-int(x)  = floor(Int,x)
-any(a)  = a[ int(length(a) * rand()) + 1]
-few(a,n=it.divs.few)=length(a)<n ? a : [any(a) for _ in 1:n]
+int(x) = floor(Int,x)
+any(a) =  a[ int(length(a) * rand()) + 1]
+```
+
+`few`: Pull  `n` things from a list (at random) 
+
+```julia
+few(a,n=it.divs.few) = length(a)<n ? a : [any(a) for _ in 1:n]
 ```
 
 ## Strings
