@@ -2,10 +2,6 @@
 
 # jump.jl
 
-vim: set et ts=2 sw=2;
-
-```julia
-```
 
 ## Uses
 Non-parametric optimizers
