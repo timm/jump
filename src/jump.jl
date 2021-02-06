@@ -1,11 +1,14 @@
 #!/usr/bin/env julia
+# vim: set et ts=2 sw=2;
+
+# Non-parametric optimers
+# ## Uses
 using Test
 using Random
 using Parameters
 using ResumableFunctions
 
-no = nothing
-
+# ## Config
 @with_kw mutable struct It
   char = (skip='?',less='<',more='>',num='$',klass='!')
   str  = (skip="?")
@@ -14,10 +17,13 @@ no = nothing
   seed = 1
 end
 
+# ## Globals
+no = nothing
 it=It()
 Random.seed!(it.seed)
 
-## Misc Utils
+# ## Misc Utils
+# One-liners.
 same(s)  = s                                  # noop       
 thing(x) = try parse(Float64,x) catch _ x end # coerce
 sayln(i) = begin say(i); println("") end      # print+nl
@@ -26,7 +32,8 @@ any(a)   =  a[ int(length(a) * rand()) + 1]   # get any
 few(a,n=it.divs.few) =                        # get many
   length(a)<n ? a : [any(a) for _ in 1:n] 
 
-say(i::String) = i                            # print struct
+# ### Struct Printer
+say(i::String) = i 
 say(i::Number) = string(i) 
 say(i::Array) = "["*join(map(say,i),", ")*"]" 
 say(i::NamedTuple) = "("*join(map(say,i),", ")*")" 
@@ -40,6 +47,7 @@ say(i) = begin
     pre=", " end
   return s * "}" end
 
+# ### CSV Reader
 @resumable function csv(file;zap=r"(\s+|#.*)") # iterate on a file
   b4=""
   for line in eachline(file)
@@ -51,7 +59,8 @@ say(i) = begin
         @yield [thing(x) for x in split(b4*line,",")]
                 b4 = "" end end end end  
 
-## Tests
+# ## Tests
 main() = println(1)
-## Command line
+
+# ## Command line
 print(say([1,2,[3,"aa"],it]))
