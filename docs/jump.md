@@ -47,7 +47,7 @@ few(a,n=it.divs.few) =                        #pick many
 ```
 
 ### How to print a struct
-Skips any fields starting with `_`.
+Skips any fields starting with "`_`".
 
 ```julia
 say(i::String)     = i 
@@ -66,6 +66,7 @@ say(i) = begin
 ```
 
 ### How to read a CSV File
+Skip blank lines. Coerce numeric strings to numbers.
 
 ```julia
 @resumable function csv(file;zap=r"(\s+|#.*)") #iterate on file

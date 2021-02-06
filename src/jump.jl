@@ -32,7 +32,7 @@ few(a,n=it.divs.few) =                        #pick many
   length(a)<n ? a : [any(a) for _ in 1:n] 
 
 # ### How to print a struct
-# Skips any fields starting with `_`.
+# Skips any fields starting with "`_`".
 say(i::String)     = i 
 say(i::Char)       = string(i) 
 say(i::Number)     = string(i) 
@@ -48,6 +48,7 @@ say(i) = begin
   return s * "}" end
 
 # ### How to read a CSV File
+# Skip blank lines. Coerce numeric strings to numbers.
 @resumable function csv(file;zap=r"(\s+|#.*)") #iterate on file
   b4=""
   for line in eachline(file)
