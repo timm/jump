@@ -7,8 +7,8 @@ vim: set et ts=2 sw=2;
 ```julia
 ```
 
-Non-parametric optimers
 ## Uses
+Non-parametric optimizers
 
 ```julia
 using Test
@@ -45,7 +45,7 @@ same(s)  = s                                  # noop
 thing(x) = try parse(Float64,x) catch _ x end # coerce
 sayln(i) = begin say(i); println("") end      # print+nl
 int(x)   = floor(Int,x)                       # round
-any(a)   =  a[ int(length(a) * rand()) + 1]   # get any
+any(a)   = a[ int(length(a) * rand()) + 1 ]   # get any
 few(a,n=it.divs.few) =                        # get many
   length(a)<n ? a : [any(a) for _ in 1:n] 
 ```
@@ -53,9 +53,9 @@ few(a,n=it.divs.few) =                        # get many
 ### Struct Printer
 
 ```julia
-say(i::String) = i 
-say(i::Number) = string(i) 
-say(i::Array) = "["*join(map(say,i),", ")*"]" 
+say(i::String)     = i 
+say(i::Number)     = string(i) 
+say(i::Array)      = "["*join(map(say,i),", ")*"]" 
 say(i::NamedTuple) = "("*join(map(say,i),", ")*")" 
 say(i::Dict) = "{"*join(["$k="*say(v) for (k,v) in i],", ")*"}" 
 say(i) = begin
