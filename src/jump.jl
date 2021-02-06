@@ -9,8 +9,8 @@ using ResumableFunctions
 
 # ## Config
 @with_kw mutable struct It
-  data = (file="auto93.csv", path="./")
-  char = (skip='?',less='<',more='>',num='$',klass='!')
+  data = (file="auto93.csv", dir="data")
+  char = (skip='?',less='<',more='>',num=':',klass='!')
   str  = (skip="?")
   some = (max=64,bins=.5, cohen=0.3, trivial=1.05)
   divs = (few=126)
@@ -32,9 +32,9 @@ function inc!(i,x)
   inc1!(i::Sym,  x) = i.seen[x] = 1+get(i.seen,x,0) 
   inc1!(i::Some, x) = begin
     m = length(i._all)
-    if m < i.some.max
+    if m < it.some.max
       i.ok = false
-      push(i._all,x)
+      push!(i._all,x)
     elseif rand() < m/i.n
       i.ok = false
       i._all[ int(m*rand()) + 1 ] = x end  
@@ -56,15 +56,15 @@ sd(  i::Some;   a=all(i)) = (per(a,.9) - per(a,.1)) / 2.56
 @with_kw mutable struct Row   cells=[]; score=0; klass=no    end
 
 function data(file, t=Table())
-  function col(;txt="",pos=0,c=it.char)
+  function col(;txt="", pos=0, c=it.char)
     x = c.less in txt||c.more in txt||c.num in txt ? Some : Sym
-    x = c.skip in txt ? Skip : what
-    x(txt=txt,pos=pos, w= c.less in txt ? -1 : 1) 
+    x = c.skip in txt ? Skip : x
+    x(txt=txt, pos=pos, w= c.less in txt ? -1 : 1) 
   end
-  cols(a) = [col(txt=txt,col=pos) for (pos,txt) in enumerate(a)]
-  inc(a)  = [inc(c, a[c.pos])     for c in t.cols]
+  cols(a)  = [col(txt=txt, pos=pos) for (pos,txt) in enumerate(a)]
+  cells(a) = Row(cells= [inc!(c, a[c.pos])     for c in t.cols])
   for a in csv(it.data.dir * "/" * file)
-    length(t.cols)==0 ? t.cols=cols(a) : push(t.rows, row(a)) end
+    length(t.cols)==0 ? t.cols=cols(a) : push!(t.rows, cells(a)) end
   t end
 
 # ## Misc Utils
@@ -81,6 +81,7 @@ few(a,n=it.divs.few) =                        #pick many
 # ### How to print a struct
 # Skips any fields starting with "`_`".
 o(i::String)     = i 
+o(i::SubString)  = i 
 o(i::Char)       = string(i) 
 o(i::Number)     = string(i) 
 o(i::Array)      = "["*join(map(o,i),", ")*"]" 
@@ -108,7 +109,7 @@ o(i) = begin
         b4 = "" end end end end  
 
 # ## Tests
-go() = begin include("jump.jl"); print(1) end
+go()   = include("jump.jl")
+main() = all(data("auto.csv").cols[4])
 
 # ## Command line
-print(say([1,2,[3,"aa"],it]))
