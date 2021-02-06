@@ -1,7 +1,7 @@
 # vim: set et ts=2 sw=2;
 
-# ## Uses
 # Non-parametric optimizers
+# ## Uses
 using Test
 using Random
 using Parameters
@@ -31,8 +31,9 @@ any(a)   = a[ int(length(a) * rand()) + 1 ]   # get any
 few(a,n=it.divs.few) =                        # get many
   length(a)<n ? a : [any(a) for _ in 1:n] 
 
-# ### Struct Printer
+# ### Struct printer
 say(i::String)     = i 
+say(i::Char)       = string(i) 
 say(i::Number)     = string(i) 
 say(i::Array)      = "["*join(map(say,i),", ")*"]" 
 say(i::NamedTuple) = "("*join(map(say,i),", ")*")" 
@@ -41,12 +42,11 @@ say(i) = begin
   fields(x) = fieldnames(typeof(x))
   s, pre="$(typeof(i)){", ""
   for f in sort!([x for x in fields(i) if !("$x"[1] == '_')])
-    v= say(getfield(i,f))
-    s = s * pre * "$f=$v"
+    s = s * pre * "$f=" * say(getfield(i,f))
     pre=", " end
   return s * "}" end
 
-# ### CSV Reader
+# ### CSV reader
 @resumable function csv(file;zap=r"(\s+|#.*)") # iterate on a file
   b4=""
   for line in eachline(file)
