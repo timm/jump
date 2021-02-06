@@ -22,7 +22,7 @@ it=It()
 Random.seed!(it.seed)
 
 # ## Misc Utils
-# One-liners.
+# ### One-liners.
 same(s)  = s                                  #noop       
 thing(x) = try parse(Float64,x) catch _ x end #coerce
 sayln(i) = begin say(i); println("") end      #print+nl
@@ -31,7 +31,8 @@ any(a)   = a[ int(length(a) * rand()) + 1 ]   #pick any one
 few(a,n=it.divs.few) =                        #pick many
   length(a)<n ? a : [any(a) for _ in 1:n] 
 
-# ### Struct printer
+# ### How to print a struct
+# Skips any fields starting with `_`.
 say(i::String)     = i 
 say(i::Char)       = string(i) 
 say(i::Number)     = string(i) 
@@ -46,7 +47,7 @@ say(i) = begin
     pre=", " end
   return s * "}" end
 
-# ### CSV reader
+# ### How to read a CSV File
 @resumable function csv(file;zap=r"(\s+|#.*)") #iterate on file
   b4=""
   for line in eachline(file)

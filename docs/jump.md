@@ -34,7 +34,7 @@ Random.seed!(it.seed)
 ```
 
 ## Misc Utils
-One-liners.
+### One-liners.
 
 ```julia
 same(s)  = s                                  #noop       
@@ -46,7 +46,8 @@ few(a,n=it.divs.few) =                        #pick many
   length(a)<n ? a : [any(a) for _ in 1:n] 
 ```
 
-### Struct printer
+### How to print a struct
+Skips any fields starting with `_`.
 
 ```julia
 say(i::String)     = i 
@@ -64,7 +65,7 @@ say(i) = begin
   return s * "}" end
 ```
 
-### CSV reader
+### How to read a CSV File
 
 ```julia
 @resumable function csv(file;zap=r"(\s+|#.*)") #iterate on file
