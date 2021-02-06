@@ -34,6 +34,7 @@ Random.seed!(it.seed)
 no = nothing
 ```
 
+-------------------------------------------------------------------
 ## Columns
 
 ```julia
@@ -42,49 +43,53 @@ no = nothing
 @with_kw mutable struct Skip pos=0;txt="";w=1;n=0 end
 
 function inc!(i,x) 
-  inc1!(i::Skip, x) = i
-  inc1!(i::Sym,  x) = i.seen[x] = 1+get(i.seen,x,0) 
-  inc1!(i::Some, x) = begin
+  inc1!(i::Skip, x) = i 
+  inc1!(i::Sym,  x) = begin
+    new = i.seen[x] = 1+get(i.seen,x,0) 
+    if new > i.n i.n, i.mode = now, x end end 
+  inc1!(i::Some, x) = begin 
     m = length(i._all)
-    if m < it.some.max
-      i.ok = false
-      push!(i._all,x)
-    elseif rand() < m/i.n
-      i.ok = false
-      i._all[ int(m*rand()) + 1 ] = x end  
-  end 
-  x==it.char.skip ? x : begin i.n += 1; inc1!(i,x) end
-  x end  
+    if m < it.some.max    
+      i.ok=false; push!(i._all, x); 
+    elseif rand() < m/i.n 
+      i.ok=false; i._all[int(m*rand())+1]=x end 
+  end
+  x==it.char.skip ? x : begin i.n += 1; inc1!(i,x) end nd
 
 function all(i::Some) 
   i._all = i.ok ? i._all : sort(i._all) 
   i.ok = true
   i._all end
 
-norm(i::Some,x; a=all(i)) = (x - a[1])/(a[end] - a[1]+1E-32)
-mid( i::Some,x; a=all(i)) = per(a,.5)
-sd(  i::Some;   a=all(i)) = (per(a,.9) - per(a,.1)) / 2.56
+function mid( i::Sym)    i.mode end
+function mid( i::Some)   a=all(i); per(a,.5) end
+function sd(  i::Some)   a=all(i); (per(a,.9) - per(a,.1)) / 2.56 end
+function norm(i::Some,x) a=all(i)
+  x==it.char.skip ? x : (x-a[1])/(a[end]-a[1]+1E-32) end 
 ```
 
+-------------------------------------------------------------------
 ## Table
+Load rows, Summarize the columns.
 
 ```julia
 @with_kw mutable struct Table ys=[]; xs=[]; rows=[]; cols=[] end
-@with_kw mutable struct Row   cells=[]; score=0; klass=no    end
+@with_kw mutable struct Row   has=[]; n=0; klass=no; hi=0; most=no end
 
-function data(file, t=Table())
-  function col(;txt="", pos=0, c=it.char)
+function data(file; t=Table())
+  col(;txt="", pos=0, c=it.char) = begin
     x = c.less in txt||c.more in txt||c.num in txt ? Some : Sym
     x = c.skip in txt ? Skip : x
     x(txt=txt, pos=pos, w= c.less in txt ? -1 : 1) 
   end
   cols(a)  = [col(txt=txt, pos=pos) for (pos,txt) in enumerate(a)]
-  cells(a) = Row(cells= [inc!(c, a[c.pos])     for c in t.cols])
+  cells(a) = Row(has= [inc!(c, a[c.pos])     for c in t.cols])
   for a in csv(it.data.dir * "/" * file)
     length(t.cols)==0 ? t.cols=cols(a) : push!(t.rows, cells(a)) end
   t end
 ```
 
+-------------------------------------------------------------------
 ## Misc Utils
 ### One-liners.
 
